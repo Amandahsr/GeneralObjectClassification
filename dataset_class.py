@@ -1,5 +1,6 @@
 import numpy as np
 from keras.datasets import cifar10
+from tensorflow.keras.utils import to_categorical
 import ssl
 
 
@@ -10,6 +11,7 @@ class Dataset:
         self.training_dataset: np.ndarray = None
         self.training_labels: np.ndarray = None
         self.validation_dataset: np.ndarray = None
+        self.validation_labels: np.ndarray = None
         self.testing_dataset: np.ndarray = None
         self.testing_labels: np.ndarray = None
         self.load_datasets()
@@ -25,13 +27,16 @@ class Dataset:
             cifar10.load_data()
         )
 
-        # Normalize CIFAR-10 dataset
+        # Normalize CIFAR-10 dataset and one-hot encode labels
         training_dataset = training_dataset.astype(self.dataset_dtype) / 255
         testing_dataset = testing_dataset.astype(self.dataset_dtype) / 255
+        training_labels = to_categorical(training_labels, 10)
+        testing_labels = to_categorical(testing_labels, 10)
 
         # Use testing dataset as validation dataset
         self.training_dataset = training_dataset
         self.training_labels = training_labels
         self.validation_dataset = testing_dataset
+        self.validation_labels = testing_labels
         self.testing_dataset = testing_dataset
         self.testing_labels = testing_labels
