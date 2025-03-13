@@ -1,8 +1,8 @@
-from AlexNet_class import AlexNet, AlexNet2, AlexNet3
+from AlexNet_class import AlexNet
 import matplotlib.pyplot as plt
 
 # Initialize a AlexNet-like model
-alexnet_model = AlexNet3()
+alexnet_model = AlexNet(model_name='alexnet4')
 
 # Train autoencoder model
 alexnet_model.train_model()
